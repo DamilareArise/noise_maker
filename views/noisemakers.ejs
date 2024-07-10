@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>
+      Welcome <%= class_details.name %>, Start Listing the names of noise makers
+      for <%= class_details.class %>
+    </h1>
+    <form action="/noisemaker_name" method="post">
+      <input type="text" placeholder="Student Name" name="student_name" />
+      <input type="number" name="times" hidden/>
+      <button type="submit">Enter</button>
+    </form>
+    <a href="/reset"><button>Reset</button></a>
+    <% if (noisemakers_list.length != 0) { %>
+    <h3>Here is the list of noise makers for <%= class_details.class %></h3>
+    <ol>
+      <% noisemakers_list.forEach(noisemaker => { %>
+      <li>
+        <%= noisemaker.student_name %> <% if (noisemaker.times) { %>
+         x<%= noisemaker.times %>
+        <% } %> 
+        <span>
+          <a href="/increment/<%= noisemaker.student_name %>"><button>+</button></a>
+        </span>
+        <span>
+          <a href="/decrement/<%= noisemaker.student_name %>"><button>-</button></a>
+        </span>
+      </li>
+      <% }) %>
+    </ol>
+    <% } else { %>
+    <h3>There are no noise makers for <%= class_details.class %></h3>
+    <% } %>
+  </body>
+</html>
